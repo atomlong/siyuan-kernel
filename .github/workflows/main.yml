@@ -9,8 +9,8 @@ on:
     - 'v*'
    # branches: 
    # - master
-  schedule:
-    - cron: 00 15 * * *
+  #schedule:
+  #  - cron: 00 15 * * *
   watch:
     types: [started]
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
         deployPath: ${{ secrets.DEPLOY_PATH }}
         customRepos: ${{ secrets.CUSTOM_REPOS }}
     - name: Send build result via mail
-      uses: atomlong/send-mail-action@v3.7.2
+      uses: atomlong/send-mail-action@v3.5.0
       if: ${{ steps.runcmd.outputs.message != '' }}
       with:
         server_address: ${{secrets.MAIL_HOST}}
@@ -67,7 +67,7 @@ jobs:
         to: ${{secrets.MAIL_TO}}
         from: Github
     - name: Send sync result via mail
-      uses: atomlong/send-mail-action@v3.7.2
+      uses: atomlong/send-mail-action@v3.5.0
       if: ${{ steps.sync.outputs.error_message != '' && matrix.arch == 'armv7' }}
       with:
         server_address: ${{secrets.MAIL_HOST}}
